@@ -23,7 +23,7 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\FourTochki\Prpducts\Command;
+namespace BaksDev\FourTochki\Products\Command;
 
 use BaksDev\Core\Messenger\MessageDispatchInterface;
 use BaksDev\FourTochki\Products\Messenger\UpdateOneFourTochkiProductStock\UpdateOneFourTochkiProductStockMessage;

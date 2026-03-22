@@ -66,7 +66,7 @@ class UpdateFourTochkiProductsPriceCommand extends Command
             'article',
             'a',
             InputOption::VALUE_OPTIONAL,
-            'Фильтр по артикулу ((--article=... || -a ...))'
+            'Фильтр по артикулу ((--article=... || -a ...))',
         );
     }
 
@@ -212,7 +212,7 @@ class UpdateFourTochkiProductsPriceCommand extends Command
             {
                 $this->io->writeln(sprintf(
                     '<fg=gray>... %s</>',
-                    $allProductsWithFourTochkiSettingsResult->getProductArticle()
+                    $allProductsWithFourTochkiSettingsResult->getProductArticle(),
                 ));
 
                 continue;
@@ -220,7 +220,7 @@ class UpdateFourTochkiProductsPriceCommand extends Command
 
             $this->io->note(sprintf(
                 'Обновляем артикул %s',
-                $allProductsWithFourTochkiSettingsResult->getProductArticle()
+                $allProductsWithFourTochkiSettingsResult->getProductArticle(),
             ));
 
             /** Отправляем сообщение0  */

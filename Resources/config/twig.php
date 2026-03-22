@@ -32,6 +32,6 @@ return static function(TwigConfig $twig) {
 
     $twig->path(
         BaksDevFourTochkiProductsBundle::PATH.implode(DIRECTORY_SEPARATOR, ['Resources', 'view', '']), //.'Resources/view',
-        'four-tochki-products'
+        'four-tochki-products',
     );
 };

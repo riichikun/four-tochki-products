@@ -86,43 +86,43 @@ final class FourTochkiProductNewTest extends KernelTestCase
         $fourTochkiProductDTO->setProduct(new ProductUid(ProductUid::TEST));
         self::assertTrue($fourTochkiProductDTO
             ->getProduct()
-            ->equals(ProductUid::TEST)
+            ->equals(ProductUid::TEST),
         );
 
         $fourTochkiProductDTO->setOffer(new ProductOfferConst(ProductOfferConst::TEST));
         self::assertTrue($fourTochkiProductDTO
             ->getOffer()
-            ->equals(ProductOfferConst::TEST)
+            ->equals(ProductOfferConst::TEST),
         );
 
         $fourTochkiProductDTO->setVariation(new ProductVariationConst(ProductVariationConst::TEST));
         self::assertTrue($fourTochkiProductDTO
             ->getVariation()
-            ->equals(ProductVariationConst::TEST)
+            ->equals(ProductVariationConst::TEST),
         );
 
         $fourTochkiProductDTO->setModification(new ProductModificationConst(ProductModificationConst::TEST));
         self::assertTrue($fourTochkiProductDTO
             ->getModification()
-            ->equals(ProductModificationConst::TEST)
+            ->equals(ProductModificationConst::TEST),
         );
 
         $fourTochkiProductDTO->setCode(new FourTochkiProductCodeDTO()->setValue('code'));
         self::assertEquals('code', $fourTochkiProductDTO
             ->getCode()
-            ->getValue()
+            ->getValue(),
         );
 
         $fourTochkiProductDTO->setRefresh(new FourTochkiProductRefreshDTO()->setValue(true));
         self::assertTrue($fourTochkiProductDTO
             ->getRefresh()
-            ->getValue()
+            ->getValue(),
         );
 
         $fourTochkiProductDTO->setPrice(new FourTochkiProductPriceDTO()->setValue(true));
         self::assertTrue($fourTochkiProductDTO
             ->getPrice()
-            ->getValue()
+            ->getValue(),
         );
 
 
@@ -138,7 +138,7 @@ final class FourTochkiProductNewTest extends KernelTestCase
         $newFourTochkiProduct = $FourTochkiProductHandler->handle($fourTochkiProductDTO);
         self::assertTrue(
             $newFourTochkiProduct instanceof FourTochkiProduct,
-            message: (string) $newFourTochkiProduct
+            message: (string) $newFourTochkiProduct,
         );
     }
 }

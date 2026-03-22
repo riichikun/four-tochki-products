@@ -135,7 +135,8 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
         return $this;
     }
 
-    public function modificationConst(ProductModification|ProductModificationConst|string|null|false $modification): self
+    public function modificationConst(ProductModification|ProductModificationConst|string|null|false $modification
+    ): self
     {
         if(empty($modification))
         {
@@ -186,7 +187,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                 'product',
                 ProductActive::class,
                 'product_active',
-                'product_active.event = product.event'
+                'product_active.event = product.event',
             );
 
         $dbal
@@ -195,7 +196,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                 'product',
                 ProductTrans::class,
                 'product_trans',
-                'product_trans.event = product.event AND product_trans.local = :local'
+                'product_trans.event = product.event AND product_trans.local = :local',
             );
 
         /* Базовая Цена товара */
@@ -204,7 +205,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                 'product',
                 ProductPrice::class,
                 'product_price',
-                'product_price.event = product.event'
+                'product_price.event = product.event',
             );
 
         /* Базовый артикул продукта */
@@ -214,7 +215,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                 'product',
                 ProductInfo::class,
                 'product_info',
-                'product_info.product = product.id '
+                'product_info.product = product.id ',
             );
 
         /** Торговое предложение */
@@ -233,7 +234,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                     'product_offer',
                     '
                         product_offer.event = product.event AND 
-                        product_offer.const = :product_offer_const'
+                        product_offer.const = :product_offer_const',
                 )
                 ->setParameter('product_offer_const', $this->offer, ProductOfferConst::TYPE);
         }
@@ -244,7 +245,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                     'product',
                     ProductOffer::class,
                     'product_offer',
-                    'product_offer.event = product.event'
+                    'product_offer.event = product.event',
                 );
         }
 
@@ -255,7 +256,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                 'product_offer',
                 CategoryProductOffers::class,
                 'category_offer',
-                'category_offer.id = product_offer.category_offer'
+                'category_offer.id = product_offer.category_offer',
             );
 
         /* Получаем название торгового предложения */
@@ -266,7 +267,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                 'category_offer',
                 CategoryProductOffersTrans::class,
                 'category_offer_trans',
-                'category_offer_trans.offer = category_offer.id AND category_offer_trans.local = :local'
+                'category_offer_trans.offer = category_offer.id AND category_offer_trans.local = :local',
             );
 
         /* Наличие и резерв торгового предложения */
@@ -275,7 +276,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                 'product_offer',
                 ProductOfferQuantity::class,
                 'product_offer_quantity',
-                'product_offer_quantity.offer = product_offer.id'
+                'product_offer_quantity.offer = product_offer.id',
             );
 
         /** Множественные варианты торгового предложения */
@@ -294,7 +295,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                     'product_variation',
                     '
                         product_variation.offer = product_offer.id AND 
-                        product_variation.const = :product_variation_const'
+                        product_variation.const = :product_variation_const',
                 )
                 ->setParameter('product_variation_const', $this->variation, ProductVariationConst::TYPE);
         }
@@ -305,7 +306,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                     'product_offer',
                     ProductVariation::class,
                     'product_variation',
-                    'product_variation.offer = product_offer.id'
+                    'product_variation.offer = product_offer.id',
                 );
         }
 
@@ -317,7 +318,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                 'product_variation',
                 CategoryProductVariation::class,
                 'category_offer_variation',
-                'category_offer_variation.id = product_variation.category_variation'
+                'category_offer_variation.id = product_variation.category_variation',
             );
 
         /* Получаем название множественного варианта */
@@ -329,7 +330,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                 CategoryProductVariationTrans::class,
                 'category_offer_variation_trans',
                 'category_offer_variation_trans.variation = category_offer_variation.id AND
-                category_offer_variation_trans.local = :local'
+                category_offer_variation_trans.local = :local',
             );
 
         /* Наличие и резерв множественного варианта */
@@ -338,7 +339,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                 'category_offer_variation',
                 ProductVariationQuantity::class,
                 'product_variation_quantity',
-                'product_variation_quantity.variation = product_variation.id'
+                'product_variation_quantity.variation = product_variation.id',
             );
 
         /** Модификация множественного варианта торгового предложения */
@@ -358,12 +359,12 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                     'product_modification',
                     '   
                         product_modification.variation = product_variation.id AND 
-                        product_modification.const = :product_modification_const'
+                        product_modification.const = :product_modification_const',
                 )
                 ->setParameter(
                     'product_modification_const',
                     $this->modification,
-                    ProductModificationConst::TYPE
+                    ProductModificationConst::TYPE,
                 );
         }
         else
@@ -373,7 +374,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                     'product_variation',
                     ProductModification::class,
                     'product_modification',
-                    'product_modification.variation = product_variation.id'
+                    'product_modification.variation = product_variation.id',
                 );
         }
 
@@ -385,7 +386,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                 'product_modification',
                 CategoryProductModification::class,
                 'category_offer_modification',
-                'category_offer_modification.id = product_modification.category_modification'
+                'category_offer_modification.id = product_modification.category_modification',
             );
 
         /* Получаем название типа модификации */
@@ -397,7 +398,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                 CategoryProductModificationTrans::class,
                 'category_offer_modification_trans',
                 'category_offer_modification_trans.modification = category_offer_modification.id AND
-                category_offer_modification_trans.local = :local'
+                category_offer_modification_trans.local = :local',
             );
 
         /* Наличие и резерв модификации множественного варианта */
@@ -406,7 +407,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                 'category_offer_modification',
                 ProductModificationQuantity::class,
                 'product_modification_quantity',
-                'product_modification_quantity.modification = product_modification.id'
+                'product_modification_quantity.modification = product_modification.id',
             );
 
 
@@ -428,7 +429,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                 'product',
                 ProductPhoto::class,
                 'product_photo',
-                'product_photo.event = product.event AND product_photo.root = true'
+                'product_photo.event = product.event AND product_photo.root = true',
             );
 
         $dbal
@@ -437,7 +438,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                 ProductVariationImage::class,
                 'product_variation_image',
                 'product_variation_image.variation = product_variation.id AND
-                product_variation_image.root = true'
+                product_variation_image.root = true',
             );
 
         $dbal
@@ -445,7 +446,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                 'product_offer',
                 ProductOfferImage::class,
                 'product_offer_images',
-                'product_offer_images.offer = product_offer.id AND product_offer_images.root = true'
+                'product_offer_images.offer = product_offer.id AND product_offer_images.root = true',
             );
 
         $dbal->addSelect(
@@ -462,7 +463,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
 					
 			   ELSE NULL
 			END AS product_image
-		"
+		",
         );
 
         /** Расширение изображения */
@@ -523,7 +524,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
 			   ELSE 0
 			   
 			END AS product_quantity
-		'
+		',
         );
 
         /* Категория */
@@ -531,7 +532,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
             'product',
             ProductCategory::class,
             'product_event_category',
-            'product_event_category.event = product.event AND product_event_category.root = true'
+            'product_event_category.event = product.event AND product_event_category.root = true',
         );
 
         $dbal->allGroupByExclude();
@@ -540,7 +541,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
             'product_event_category',
             CategoryProduct::class,
             'category',
-            'category.id = product_event_category.category'
+            'category.id = product_event_category.category',
         );
 
         $dbal
@@ -549,7 +550,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                 'category',
                 CategoryProductTrans::class,
                 'category_trans',
-                'category_trans.event = category.event AND category_trans.local = :local'
+                'category_trans.event = category.event AND category_trans.local = :local',
             );
 
         $dbal
@@ -558,14 +559,14 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                 'category',
                 CategoryProductInfo::class,
                 'category_info',
-                'category_info.event = category.event'
+                'category_info.event = category.event',
             );
 
         $dbal->leftJoin(
             'category',
             CategoryProductSection::class,
             'category_section',
-            'category_section.event = category.event'
+            'category_section.event = category.event',
         );
 
         /* Свойства, участвующие в карточке */
@@ -573,21 +574,21 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
             'category_section',
             CategoryProductSectionField::class,
             'category_section_field',
-            'category_section_field.section = category_section.id AND (category_section_field.public = TRUE OR category_section_field.name = TRUE )'
+            'category_section_field.section = category_section.id AND (category_section_field.public = TRUE OR category_section_field.name = TRUE )',
         );
 
         $dbal->leftJoin(
             'category_section_field',
             CategoryProductSectionFieldTrans::class,
             'category_section_field_trans',
-            'category_section_field_trans.field = category_section_field.id AND category_section_field_trans.local = :local'
+            'category_section_field_trans.field = category_section_field.id AND category_section_field_trans.local = :local',
         );
 
         $dbal->leftJoin(
             'category_section_field',
             ProductProperty::class,
             'product_property',
-            'product_property.event = product.event AND product_property.field = category_section_field.const'
+            'product_property.event = product.event AND product_property.field = category_section_field.const',
         );
 
         $dbal->addSelect(
@@ -608,7 +609,7 @@ final class OneProductWithFourTochkiSettingsRepository implements OneProductWith
                         'field_value', product_property.value
                     )
             )
-			AS category_section_field"
+			AS category_section_field",
         );
 
         $dbal->allGroupByExclude();

@@ -25,17 +25,17 @@ declare(strict_types=1);
 
 namespace BaksDev\FourTochki\Products\Controller\Admin;
 
+use BaksDev\Core\Controller\AbstractController;
+use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
 use BaksDev\FourTochki\Products\Entity\FourTochkiProduct;
 use BaksDev\FourTochki\Products\UseCase\Delete\FourTochkiProductDeleteDTO;
 use BaksDev\FourTochki\Products\UseCase\Delete\FourTochkiProductDeleteForm;
 use BaksDev\FourTochki\Products\UseCase\Delete\FourTochkiProductDeleteHandler;
-use BaksDev\Core\Controller\AbstractController;
-use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[AsController]
 #[RoleSecurity('ROLE_FOUR_TOCHKI_PRODUCTS_DELETE')]
@@ -56,8 +56,8 @@ final class DeleteController extends AbstractController
                 $fourTochkiProductDeleteDTO,
                 ['action' => $this->generateUrl(
                     'four-tochki-products:admin.products.delete',
-                    ['id' => $fourTochkiProductDeleteDTO->getId()]
-                )]
+                    ['id' => $fourTochkiProductDeleteDTO->getId()],
+                )],
             )
             ->handleRequest($request);
 
@@ -70,7 +70,7 @@ final class DeleteController extends AbstractController
                 'page.delete',
                 $handle instanceof FourTochkiProduct ? 'success.delete' : 'danger.delete',
                 'four-tochki-products.admin',
-                $handle
+                $handle,
             );
 
             return $this->redirectToReferer();

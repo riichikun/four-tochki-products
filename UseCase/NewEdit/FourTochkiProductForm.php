@@ -50,8 +50,8 @@ final class FourTochkiProductForm extends AbstractType
             [
                 'label' => 'Save',
                 'label_html' => true,
-                'attr' => ['class' => 'btn-primary']
-            ]
+                'attr' => ['class' => 'btn-primary'],
+            ],
         );
     }
 

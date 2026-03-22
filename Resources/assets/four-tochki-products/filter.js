@@ -22,20 +22,23 @@
 
 executeFunc(function fourTochkiProductsFunction()
 {
-    if(typeof formDebounce !== 'function')
+    if(typeof formDebounce !== "function")
     {
         return false;
     }
 
     const form = document.forms.four_tochki_products_filter_form;
 
-    if(typeof form === 'undefined')
+    if(typeof form === "undefined")
     {
         return false;
     }
 
-    form.addEventListener('change', formDebounce(() => { form.submit(); }, 300));
+    form.addEventListener("change", formDebounce(() =>
+    {
+        form.submit();
+    }, 300));
 
     return true;
-})
+});
 

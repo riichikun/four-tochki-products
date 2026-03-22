@@ -81,7 +81,7 @@ final class FourTochkiProductDTO implements FourTochkiProductInterface
     {
         $this->code = new FourTochkiProductCodeDTO();
         $this->price = new FourTochkiProductPriceDTO();
-        $this->refresh= new FourTochkiProductRefreshDTO();
+        $this->refresh = new FourTochkiProductRefreshDTO();
         $this->profile = new FourTochkiProductProfileDTO();
     }
 
@@ -145,26 +145,26 @@ final class FourTochkiProductDTO implements FourTochkiProductInterface
         return $this->code;
     }
 
-    public function getPrice(): FourTochkiProductPriceDTO
-    {
-        return $this->price;
-    }
-
-    public function getRefresh(): FourTochkiProductRefreshDTO
-    {
-        return $this->refresh;
-    }
-
     public function setCode(FourTochkiProductCodeDTO $code): self
     {
         $this->code = $code;
         return $this;
     }
 
+    public function getPrice(): FourTochkiProductPriceDTO
+    {
+        return $this->price;
+    }
+
     public function setPrice(FourTochkiProductPriceDTO $price): self
     {
         $this->price = $price;
         return $this;
+    }
+
+    public function getRefresh(): FourTochkiProductRefreshDTO
+    {
+        return $this->refresh;
     }
 
     public function setRefresh(FourTochkiProductRefreshDTO $refresh): self

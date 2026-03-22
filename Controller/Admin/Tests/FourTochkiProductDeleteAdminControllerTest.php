@@ -29,9 +29,9 @@ use BaksDev\FourTochki\Products\Type\Id\FourTochkiProductUid;
 use BaksDev\FourTochki\Products\UseCase\NewEdit\Tests\FourTochkiProductNewTest;
 use BaksDev\Users\User\Tests\TestUserAccount;
 use PHPUnit\Framework\Attributes\DependsOnClass;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
-use PHPUnit\Framework\Attributes\Group;
 
 #[Group('four-tochki-products')]
 #[Group('four-tochki-products-controller')]

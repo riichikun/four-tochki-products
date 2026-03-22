@@ -25,10 +25,10 @@ declare(strict_types=1);
 
 namespace BaksDev\FourTochki\Products\Repository\FourTochkiProductProfile;
 
+use BaksDev\Core\Doctrine\ORMQueryBuilder;
 use BaksDev\FourTochki\Products\Entity\FourTochkiProduct;
 use BaksDev\FourTochki\Products\Entity\Price\FourTochkiProductPrice;
 use BaksDev\FourTochki\Products\Entity\Profile\FourTochkiProductProfile;
-use BaksDev\Core\Doctrine\ORMQueryBuilder;
 use BaksDev\FourTochki\Products\Entity\Refresh\FourTochkiProductRefresh;
 use BaksDev\Products\Product\Entity\Offers\ProductOffer;
 use BaksDev\Products\Product\Entity\Offers\Variation\Modification\ProductModification;
@@ -177,7 +177,7 @@ final class FourTochkiProductProfileRepository implements FourTochkiProductProfi
                 FourTochkiProductRefresh::class,
                 'refresh',
                 'WITH',
-                'refresh.main = four_tochki.id'
+                'refresh.main = four_tochki.id',
             );
 
         $orm
@@ -185,7 +185,7 @@ final class FourTochkiProductProfileRepository implements FourTochkiProductProfi
                 FourTochkiProductPrice::class,
                 'price',
                 'WITH',
-                'price.main = four_tochki.id'
+                'price.main = four_tochki.id',
             );
 
         if(true === ($this->offer instanceof ProductOfferConst))

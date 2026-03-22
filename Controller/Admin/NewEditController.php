@@ -25,15 +25,15 @@ declare(strict_types=1);
 
 namespace BaksDev\FourTochki\Products\Controller\Admin;
 
+use BaksDev\Core\Controller\AbstractController;
+use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
+use BaksDev\Core\Type\UidType\ParamConverter;
 use BaksDev\FourTochki\Products\Entity\FourTochkiProduct;
 use BaksDev\FourTochki\Products\Repository\FourTochkiProductProfile\FourTochkiProductProfileInterface;
 use BaksDev\FourTochki\Products\Repository\OneProductWithFourTochkiSettings\OneProductWithFourTochkiSettingsInterface;
 use BaksDev\FourTochki\Products\UseCase\NewEdit\FourTochkiProductDTO;
 use BaksDev\FourTochki\Products\UseCase\NewEdit\FourTochkiProductForm;
 use BaksDev\FourTochki\Products\UseCase\NewEdit\FourTochkiProductHandler;
-use BaksDev\Core\Controller\AbstractController;
-use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
-use BaksDev\Core\Type\UidType\ParamConverter;
 use BaksDev\Products\Product\Type\Id\ProductUid;
 use BaksDev\Products\Product\Type\Offers\ConstId\ProductOfferConst;
 use BaksDev\Products\Product\Type\Offers\Variation\ConstId\ProductVariationConst;
@@ -81,6 +81,7 @@ final class NewEditController extends AbstractController
 
         /**
          * Находим уникальный продукт FourTochki, делаем его инстанс, передаем в форму
+         *
          * @var FourTochkiProduct|false $fourTochkiProductCard
          */
         $fourTochkiProductCard = $FourTochkiProductProfileInterface

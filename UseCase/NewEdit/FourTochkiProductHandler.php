@@ -25,9 +25,9 @@ declare(strict_types=1);
 
 namespace BaksDev\FourTochki\Products\UseCase\NewEdit;
 
+use BaksDev\Core\Entity\AbstractHandler;
 use BaksDev\FourTochki\Products\Entity\FourTochkiProduct;
 use BaksDev\FourTochki\Products\Messenger\FourTochkiProductMessage;
-use BaksDev\Core\Entity\AbstractHandler;
 
 final class FourTochkiProductHandler extends AbstractHandler
 {
@@ -39,7 +39,7 @@ final class FourTochkiProductHandler extends AbstractHandler
         /** @var FourTochkiProduct $entity */
         $entity = $this->prePersistOrUpdate(
             FourTochkiProduct::class,
-            ['id' => $command->getFourTochkiProductUid()]
+            ['id' => $command->getFourTochkiProductUid()],
         );
 
         /** Валидация всех объектов */

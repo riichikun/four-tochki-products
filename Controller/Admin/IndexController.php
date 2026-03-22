@@ -25,13 +25,13 @@ declare(strict_types=1);
 
 namespace BaksDev\FourTochki\Products\Controller\Admin;
 
-use BaksDev\FourTochki\Products\Forms\FourTochkiFilter\FourTochkiProductsFilterDTO;
-use BaksDev\FourTochki\Products\Forms\FourTochkiFilter\FourTochkiProductsFilterForm;
-use BaksDev\FourTochki\Products\Repository\AllProductsWithFourTochkiSettings\AllProductsWithFourTochkiSettingsInterface;
 use BaksDev\Core\Controller\AbstractController;
 use BaksDev\Core\Form\Search\SearchDTO;
 use BaksDev\Core\Form\Search\SearchForm;
 use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
+use BaksDev\FourTochki\Products\Forms\FourTochkiFilter\FourTochkiProductsFilterDTO;
+use BaksDev\FourTochki\Products\Forms\FourTochkiFilter\FourTochkiProductsFilterForm;
+use BaksDev\FourTochki\Products\Repository\AllProductsWithFourTochkiSettings\AllProductsWithFourTochkiSettingsInterface;
 use BaksDev\Products\Product\Forms\ProductFilter\Admin\ProductFilterDTO;
 use BaksDev\Products\Product\Forms\ProductFilter\Admin\ProductFilterForm;
 use Symfony\Component\HttpFoundation\Request;
@@ -94,7 +94,7 @@ final class IndexController extends AbstractController
                 'filter' => $productFilterForm->createView(),
                 'four_tochki' => $fourTochkiProductsFilterForm->createView(),
                 'search' => $searchForm->createView(),
-                'query' => $products
+                'query' => $products,
             ],
         );
     }

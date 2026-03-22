@@ -59,6 +59,12 @@ final class FourTochkiProductNewEditAdminControllerTest extends WebTestCase
         );
     }
 
+    /** Удаляем тестовый продукт после завершения */
+    public static function tearDownAfterClass(): void
+    {
+        ProductsProductDeleteAdminUseCaseTest::tearDownAfterClass();
+    }
+
     /** Доступ по роли */
     public function testRoleSuccessful(): void
     {
@@ -140,12 +146,5 @@ final class FourTochkiProductNewEditAdminControllerTest extends WebTestCase
         }
 
         self::assertTrue(true);
-    }
-
-
-    /** Удаляем тестовый продукт после завершения */
-    public static function tearDownAfterClass(): void
-    {
-        ProductsProductDeleteAdminUseCaseTest::tearDownAfterClass();
     }
 }

@@ -25,4 +25,4 @@ declare(strict_types=1);
 
 namespace BaksDev\FourTochki\Products\Entity;
 
-interface FourTochkiProductInterface {}
+interface FourTochkiProductInterface { }

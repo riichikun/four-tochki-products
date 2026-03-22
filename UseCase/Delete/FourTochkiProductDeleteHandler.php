@@ -25,9 +25,9 @@ declare(strict_types=1);
 
 namespace BaksDev\FourTochki\Products\UseCase\Delete;
 
+use BaksDev\Core\Entity\AbstractHandler;
 use BaksDev\FourTochki\Products\Entity\FourTochkiProduct;
 use BaksDev\FourTochki\Products\Messenger\FourTochkiProductMessage;
-use BaksDev\Core\Entity\AbstractHandler;
 
 final class FourTochkiProductDeleteHandler extends AbstractHandler
 {

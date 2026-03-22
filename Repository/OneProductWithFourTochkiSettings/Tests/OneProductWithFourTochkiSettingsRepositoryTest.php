@@ -72,7 +72,7 @@ final class OneProductWithFourTochkiSettingsRepositoryTest extends KernelTestCas
             {
                 // Вызываем метод
                 $data = $method->invoke($result);
-//                dump($data);
+                //                dump($data);
             }
         }
     }

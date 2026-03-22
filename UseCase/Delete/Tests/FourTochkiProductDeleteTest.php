@@ -43,6 +43,15 @@ use Symfony\Component\DependencyInjection\Attribute\When;
 #[Group('four-tochki-products-usecase')]
 class FourTochkiProductDeleteTest extends KernelTestCase
 {
+    public static function tearDownAfterClass(): void
+    {
+        /** Удаляем тестовый продукт после завершения */
+        ProductsProductDeleteAdminUseCaseTest::tearDownAfterClass();
+
+        /** Удаляем тестовую авторизацию FourTochki */
+        FourTochkiAuthDeleteTest::tearDownAfterClass();
+    }
+
     #[DependsOnClass(FourTochkiProductEditTest::class)]
     public function testDelete(): void
     {
@@ -63,14 +72,5 @@ class FourTochkiProductDeleteTest extends KernelTestCase
         $FourTochkiProductDeleteHandler = $Container->get(FourTochkiProductDeleteHandler::class);
         $deletedFourTochkiProduct = $FourTochkiProductDeleteHandler->handle($deleteDTO);
         self::assertTrue($deletedFourTochkiProduct instanceof FourTochkiProduct);
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        /** Удаляем тестовый продукт после завершения */
-        ProductsProductDeleteAdminUseCaseTest::tearDownAfterClass();
-
-        /** Удаляем тестовую авторизацию FourTochki */
-        FourTochkiAuthDeleteTest::tearDownAfterClass();
     }
 }

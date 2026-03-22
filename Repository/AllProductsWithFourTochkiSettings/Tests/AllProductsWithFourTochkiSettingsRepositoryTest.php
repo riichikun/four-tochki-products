@@ -60,7 +60,7 @@ final class AllProductsWithFourTochkiSettingsRepositoryTest extends KernelTestCa
         {
             self::assertInstanceOf(
                 AllProductsWithFourTochkiSettingsResult::class,
-                $allProductsWithFourTochkiSettingsResult
+                $allProductsWithFourTochkiSettingsResult,
             );
 
             // Вызываем все геттеры
@@ -74,7 +74,7 @@ final class AllProductsWithFourTochkiSettingsRepositoryTest extends KernelTestCa
                 {
                     // Вызываем метод
                     $data = $method->invoke($allProductsWithFourTochkiSettingsResult);
-//                    dump($data);
+                    //                    dump($data);
                 }
             }
 

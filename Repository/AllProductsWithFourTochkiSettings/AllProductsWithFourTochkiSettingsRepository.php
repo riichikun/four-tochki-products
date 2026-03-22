@@ -28,8 +28,8 @@ namespace BaksDev\FourTochki\Products\Repository\AllProductsWithFourTochkiSettin
 use BaksDev\Core\Doctrine\DBALQueryBuilder;
 use BaksDev\Core\Form\Search\SearchDTO;
 use BaksDev\Core\Services\Paginator\PaginatorInterface;
-use BaksDev\FourTochki\Entity\FourTochkiAuth;
 use BaksDev\FourTochki\Entity\Event\FourTochkiAuthEvent;
+use BaksDev\FourTochki\Entity\FourTochkiAuth;
 use BaksDev\FourTochki\Entity\Profile\FourTochkiAuthProfile;
 use BaksDev\FourTochki\Products\Entity\Code\FourTochkiProductCode;
 use BaksDev\FourTochki\Products\Entity\FourTochkiProduct;
@@ -427,7 +427,7 @@ final class AllProductsWithFourTochkiSettingsRepository implements AllProductsWi
                 'four_tochki_product_profile',
                 '
                    four_tochki_product_profile.main = four_tochki_product.id AND
-                   four_tochki_product_profile.value = four_tochki_auth_profile.value'
+                   four_tochki_product_profile.value = four_tochki_auth_profile.value',
             );
 
 
@@ -443,10 +443,12 @@ final class AllProductsWithFourTochkiSettingsRepository implements AllProductsWi
 
 
         /* Фильтр по товарам "С настройками" / "Без настроек" */
-        if (true === $this->fourTochkiProductsFilter?->getExists()) {
+        if(true === $this->fourTochkiProductsFilter?->getExists())
+        {
             $dbal->andWhere('four_tochki_product_profile.value IS NOT NULL');
         }
-        if (false === $this->fourTochkiProductsFilter?->getExists()) {
+        if(false === $this->fourTochkiProductsFilter?->getExists())
+        {
             $dbal->andWhere('four_tochki_product_profile.value IS NULL');
         }
 

@@ -55,9 +55,6 @@ final class UpdateOneFourTochkiProductPriceDispatcherTest extends KernelTestCase
 
         $MessageDispatch->dispatch(new UpdateOneFourTochkiProductPriceMessage(
             new ProductUid(),
-            new ProductOfferUid(),
-            new ProductVariationUid(),
-            new ProductModificationUid(),
             new ProductOfferConst(),
             new ProductVariationConst(),
             new ProductModificationConst(),

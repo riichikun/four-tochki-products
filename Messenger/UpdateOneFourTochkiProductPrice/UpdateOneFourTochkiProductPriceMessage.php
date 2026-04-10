@@ -40,12 +40,6 @@ final readonly class UpdateOneFourTochkiProductPriceMessage
 
     private string $profile;
 
-    private string $offerId;
-
-    private string $variationId;
-
-    private string $modificationId;
-
     private string $offerConst;
 
     private string $variationConst;
@@ -54,9 +48,6 @@ final readonly class UpdateOneFourTochkiProductPriceMessage
 
     public function __construct(
         ProductUid $product,
-        ProductOfferUid $offer,
-        ProductVariationUid $variation,
-        ProductModificationUid $modification,
         ProductOfferConst $offerConst,
         ProductVariationConst $variationConst,
         ProductModificationConst $modificationConst,
@@ -64,13 +55,11 @@ final readonly class UpdateOneFourTochkiProductPriceMessage
     )
     {
         $this->product = (string) $product;
-        $this->profile = (string) $profile;
-        $this->offerId = (string) $offer;
-        $this->variationId = (string) $variation;
-        $this->modificationId = (string) $modification;
         $this->offerConst = (string) $offerConst;
         $this->variationConst = (string) $variationConst;
         $this->modificationConst = (string) $modificationConst;
+
+        $this->profile = (string) $profile;
     }
 
     public function getProduct(): ProductUid

@@ -32,6 +32,7 @@ use BaksDev\FourTochki\Products\Repository\FourTochkiProductProfile\FourTochkiPr
 use BaksDev\FourTochki\Products\UseCase\NewEdit\FourTochkiProductDTO;
 use BaksDev\Products\Product\Messenger\Price\UpdateProductPriceMessage;
 use BaksDev\Products\Product\Repository\CurrentProductEvent\CurrentProductEventInterface;
+use BaksDev\Products\Product\Repository\CurrentProductIdentifier\CurrentProductIdentifierByConstInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Target;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
@@ -43,7 +44,7 @@ final readonly class UpdateOneFourTochkiProductPriceDispatcher
         #[Target('fourTochkiLogger')] private LoggerInterface $Logger,
         private FourTochkiGetFindTyreRequest $FourTochkiGetFindTyreRequest,
         private FourTochkiProductProfileInterface $FourTochkiProductProfileRepository,
-        private CurrentProductEventInterface $CurrentProductEventRepository,
+        private CurrentProductIdentifierByConstInterface $CurrentProductIdentifierByConstRepository,
         private MessageDispatchInterface $MessageDispatch,
     ) {}
 
@@ -71,51 +72,59 @@ final readonly class UpdateOneFourTochkiProductPriceDispatcher
         $fourTochkiProductDTO = new FourTochkiProductDTO();
         $fourTochkiProduct->getDto($fourTochkiProductDTO);
 
-
-        /** Если выбрана настройка обновления цены в карточке */
-        if(true === $fourTochkiProductDTO->getPrice()->getValue())
+        /** Если не выбрана настройка обновления цены в карточке */
+        if(false === $fourTochkiProductDTO->getPrice()->getValue())
         {
-            $code = $fourTochkiProductDTO
-                ->getCode()
-                ->getValue();
+            return;
+        }
 
-            $fourTochkiGetFindTyreResult = $this->FourTochkiGetFindTyreRequest
-                ->profile($message->getProfile())
-                ->findTyre($code);
+        /**
+         * Обновляем цену в карточке
+         */
 
-            if(false === ($fourTochkiGetFindTyreResult instanceof FourTochkiGetFindTyreResult))
-            {
-                $this->Logger->warning(
-                    sprintf('Модель с артикулом %s не была найдена на складах 4tochki', $code),
-                    [var_export($message, true), self::class.':'.__LINE__],
-                );
-                return;
-            }
+        $code = $fourTochkiProductDTO
+            ->getCode()
+            ->getValue();
 
+        $fourTochkiGetFindTyreResult = $this->FourTochkiGetFindTyreRequest
+            ->profile($message->getProfile())
+            ->findTyre($code);
 
-            /** Находим текущее событие продукта */
-            $productEvent = $this->CurrentProductEventRepository->findByProduct($message->getProduct());
-
-
-            /** Получаем цену с учетом торговой наценки */
-            $price = $fourTochkiGetFindTyreResult->getPriceWithPercent();
-
-
-            $updateProductPriceMessage = new UpdateProductPriceMessage()
-                ->setEvent($productEvent->getId())
-                ->setOffer($message->getOffer())
-                ->setVariation($message->getVariation())
-                ->setModification($message->getModification())
-                ->setPrice($price);
-
-
-            /** Обновляем цену в карточке */
-            $this->MessageDispatch->dispatch($updateProductPriceMessage, [], 'products-product');
-
-            $this->Logger->info(
-                'Цена продукции в карточке успешно обновлена',
+        if(false === ($fourTochkiGetFindTyreResult instanceof FourTochkiGetFindTyreResult))
+        {
+            $this->Logger->warning(
+                sprintf('Модель с артикулом %s не была найдена на складах 4tochki', $code),
                 [var_export($message, true), self::class.':'.__LINE__],
             );
+            return;
         }
+
+        $CurrentProductIdentifierResult = $this->CurrentProductIdentifierByConstRepository
+            ->forProduct($message->getProduct())
+            ->forOfferConst($message->getOfferConst())
+            ->forVariationConst($message->getVariationConst())
+            ->forModificationConst($message->getModificationConst())
+            ->find();
+
+        /** Получаем цену с учетом торговой наценки */
+        $price = $fourTochkiGetFindTyreResult->getPriceWithPercent();
+
+        $updateProductPriceMessage = new UpdateProductPriceMessage()
+            ->setEvent($CurrentProductIdentifierResult->getEvent())
+            ->setOffer($CurrentProductIdentifierResult->getOffer())
+            ->setVariation($CurrentProductIdentifierResult->getVariation())
+            ->setModification($CurrentProductIdentifierResult->getModification())
+            ->setPrice($price);
+
+        /** Обновляем цену в карточке */
+        $this->MessageDispatch->dispatch(
+            message: $updateProductPriceMessage,
+            transport: 'products-product',
+        );
+
+        $this->Logger->info(
+            'Цена продукции в карточке успешно обновлена',
+            [var_export($message, true), self::class.':'.__LINE__],
+        );
     }
 }

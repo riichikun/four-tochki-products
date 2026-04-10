@@ -227,10 +227,6 @@ class UpdateFourTochkiProductsPriceCommand extends Command
             $this->MessageDispatch->dispatch(
                 new UpdateOneFourTochkiProductPriceMessage(
                     $allProductsWithFourTochkiSettingsResult->getId(),
-                    $allProductsWithFourTochkiSettingsResult->getProductOfferId(),
-                    $allProductsWithFourTochkiSettingsResult->getProductVariationId(),
-                    $allProductsWithFourTochkiSettingsResult->getProductModificationId(),
-
                     $allProductsWithFourTochkiSettingsResult->getProductOfferConst(),
                     $allProductsWithFourTochkiSettingsResult->getProductVariationConst(),
                     $allProductsWithFourTochkiSettingsResult->getProductModificationConst(),

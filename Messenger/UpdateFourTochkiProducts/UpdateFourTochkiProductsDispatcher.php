@@ -104,12 +104,10 @@ final readonly class UpdateFourTochkiProductsDispatcher
             $this->MessageDispatch->dispatch(
                 new UpdateOneFourTochkiProductPriceMessage(
                     $allProductsWithFourTochkiSettingsResult->getId(),
-                    $allProductsWithFourTochkiSettingsResult->getProductOfferId(),
-                    $allProductsWithFourTochkiSettingsResult->getProductVariationId(),
-                    $allProductsWithFourTochkiSettingsResult->getProductModificationId(),
                     $allProductsWithFourTochkiSettingsResult->getProductOfferConst(),
                     $allProductsWithFourTochkiSettingsResult->getProductVariationConst(),
                     $allProductsWithFourTochkiSettingsResult->getProductModificationConst(),
+
                     $message->getProfile(),
                 ),
                 transport: (string) $message->getProfile(),

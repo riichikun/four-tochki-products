@@ -29,6 +29,8 @@ use BaksDev\Core\Messenger\MessageDispatchInterface;
 use BaksDev\FourTochki\Products\Messenger\UpdateFourTochkiProducts\UpdateFourTochkiProductsMessage;
 use BaksDev\FourTochki\Repository\AllFourTochkiAuth\AllFourTochkiAuthInterface;
 use BaksDev\FourTochki\Repository\AllFourTochkiAuth\AllFourTochkiAuthResult;
+use BaksDev\FourTochki\Repository\AllProfileAuth\AllProfileFourTochkiAuthInterface;
+use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Target;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
@@ -37,34 +39,27 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 final readonly class FourTochkiProductsRefreshScheduleHandler
 {
     public function __construct(
-        #[Target('fourTochkiLogger')] private LoggerInterface $logger,
         private MessageDispatchInterface $messageDispatch,
-        private AllFourTochkiAuthInterface $AllFourTochkiAuthRepository,
+        private AllProfileFourTochkiAuthInterface $AllProfileFourTochkiRepository,
     ) {}
 
     public function __invoke(FourTochkiProductsRefreshScheduleMessage $message): void
     {
         /** Получаем все активные профили, у которых активная авторизация */
-        $profiles = $this->AllFourTochkiAuthRepository
-            ->findPaginator()
-            ->getData();
+        $profiles = $this->AllProfileFourTochkiRepository
+            ->onlyActive()
+            ->findAll();
 
-        if(false === empty($profiles))
+        if(true === $profiles || false === $profiles->valid())
         {
-            $this->logger->warning(
-                'Профилей с активной авторизацией не найдено',
-                [__FILE__.':'.__LINE__],
-            );
-
             return;
         }
 
-        /** @var AllFourTochkiAuthResult $profile */
-        foreach($profiles as $profile)
+        foreach($profiles as $UserProfileUid)
         {
             $this->messageDispatch->dispatch(
-                message: new UpdateFourTochkiProductsMessage($profile->getId()),
-                transport: (string) $profile->getId(),
+                message: new UpdateFourTochkiProductsMessage($UserProfileUid),
+                transport: (string) $UserProfileUid,
             );
         }
     }
